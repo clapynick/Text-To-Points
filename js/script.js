@@ -1,3 +1,8 @@
+/*
+	File: Main Driver
+	Author: N. Parsons
+	Copyright: N. Parsons (C) 2018
+*/
 $(function(){
 	var canvas = document.getElementById('myCanvas');
 	var ctx = canvas.getContext('2d');
@@ -8,10 +13,10 @@ $(function(){
 	var text = prompt("Enter some text:");
 	var txtWidth = ctx.measureText(text).width;
 	txtWidth = txtWidth > canvas.width ? canvas.width : txtWidth;
-	var txtHeight = ctx.measureText('M').width; 
+	var txtHeight = ctx.measureText('M').width;
 	txtHeight += (txtHeight * 0.30)
 	txtHeight = txtHeight > canvas.height ? canvas.height : txtHeight;
-	
+
 	var points = getTextPoints(text, canvas, ctx, accuracy);
 
 	var mouseX = null;
@@ -28,7 +33,7 @@ $(function(){
 		onCanvas = false;
 	});
 
-
+	// Turn the text into points
 	function getTextPoints(text, canvas, ctx, accuracy){
 		function translatePoints(points, width, height, scl) {
 			width *= scl; // Multiply the width by the scale to use in translations later
@@ -52,7 +57,7 @@ $(function(){
 		ctx.fillStyle = 'white';
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		ctx.fillStyle = 'black';
-	
+
 		ctx.fillText(text, 0, (txtHeight/2) + (txtHeight * 0.30));
 
 		var points = [];
@@ -82,13 +87,7 @@ $(function(){
 			points[i].draw(ctx);
 			if(onCanvas) {
 				points[i].move(mouseX, mouseY);
-			} /*else if(!onCanvas){
-				points[i].velocity = new Vector2d(0); 
-				points[i].acceleration = new Vector2d(0);
-				if(points === originalPoints) console.log("hm");
-				points[i].move(originalPoints[i].position.x, originalPoints[i].position.y);
-				console.log("Point x :" + points[i].position.x);
-			}*/
+			} 
 		}
 	});
 });
